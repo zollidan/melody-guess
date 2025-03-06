@@ -3,7 +3,7 @@ from aiogram import Router, F
 from aiogram.filters import CommandStart, Command
 from aiogram.types import Message, ReplyKeyboardMarkup, KeyboardButton
 
-from app.keyboards.kbs import start_kb
+from bot.keyboards.kbs import start_kb
 
 start_router = Router()
 

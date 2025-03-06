@@ -1,5 +1,5 @@
 from sqlalchemy import BigInteger, ForeignKey, Integer, String, UniqueConstraint
-from app.database import Base
+from bot.database import Base
 from sqlalchemy.orm import mapped_column, Mapped, relationship
     
 class User(Base):

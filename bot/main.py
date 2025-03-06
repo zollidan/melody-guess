@@ -7,7 +7,7 @@ import asyncio
 from aiogram.types import BotCommand, BotCommandScopeDefault
 from loguru import logger
 from config import bot, dp, admin
-from app.handlers.start import start_router
+from bot.handlers.start import start_router
 
 async def start_bot():
     # try:
