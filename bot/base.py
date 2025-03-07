@@ -65,7 +65,19 @@ class BaseDAO(Generic[T]):
             logger.error(f"Ошибка при добавлении записи: {e}")
             raise e
         return new_instance
-        
-        
+
 class UserDAO(BaseDAO[User]):
     model = User
+    
+    @classmethod
+    async def find_by_points_desc(cls, session: AsyncSession):
+        logger.info(f"Поиск записей {cls.model.__name__} с сортировкой по количеству очков")
+        try:
+            query = select(cls.model).order_by(cls.model.points.desc()).limit(10)
+            result = await session.execute(query)
+            records = result.scalars().all()
+            logger.info(f"Найдено {len(records)} с сортировкой по количеству очков")
+            return records
+        except SQLAlchemyError as e:
+            logger.error(f"Ошибка при поиске записей в {cls.model.__name__}.")
+            raise

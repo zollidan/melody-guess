@@ -9,6 +9,9 @@ from bot.config import bot, dp, admin
 from bot.database_middleware import DatabaseMiddlewareWithCommit, DatabaseMiddlewareWithoutCommit
 
 from bot.handlers.start import start_router
+from bot.handlers.ratings import rating_router
+
+
 
 async def start_bot():
     # try:
@@ -32,7 +35,8 @@ async def main():
 
     # роутеры
     dp.include_router(start_router)
-
+    dp.include_router(rating_router)
+    
     # команлды старт/стоп
     dp.startup.register(start_bot)
     dp.shutdown.register(stop_bot)
