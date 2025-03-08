@@ -5,12 +5,9 @@ from sqlalchemy.future import select
 from sqlalchemy import update as sqlalchemy_update, delete as sqlalchemy_delete, func
 from loguru import logger
 from sqlalchemy.ext.asyncio import AsyncSession
-
 from bot.database import Base
-
 from typing import TypeVar
-
-from bot.model import User
+from bot.model import User, HummingSample
 
 T = TypeVar("T", bound=Base)
 
@@ -81,3 +78,19 @@ class UserDAO(BaseDAO[User]):
         except SQLAlchemyError as e:
             logger.error(f"Ошибка при поиске записей в {cls.model.__name__}.")
             raise
+        
+class HummingSampleDAO(BaseDAO[HummingSample]):
+    model = HummingSample
+    
+    @classmethod
+    async def user_has_samples(cls, session: AsyncSession, user_id: int) -> bool:
+        logger.info(f"Проверка наличия сэмплов у пользователя {user_id}")
+        try:
+            query = select(cls.model).where(cls.model.user_id == user_id).limit(1)
+            result = await session.execute(query)
+            sample = result.scalar_one_or_none()
+            has_samples = sample is not None
+            return has_samples
+        except SQLAlchemyError as e:
+            logger.error(f"Ошибка при проверке сэмплов у пользователя {user_id}: {e}")
+            return False

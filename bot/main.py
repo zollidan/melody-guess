@@ -10,6 +10,7 @@ from bot.database_middleware import DatabaseMiddlewareWithCommit, DatabaseMiddle
 
 from bot.handlers.start import start_router
 from bot.handlers.ratings import rating_router
+from bot.handlers.game import game_router
 
 
 
@@ -36,6 +37,7 @@ async def main():
     # роутеры
     dp.include_router(start_router)
     dp.include_router(rating_router)
+    dp.include_router(game_router)
     
     # команлды старт/стоп
     dp.startup.register(start_bot)
