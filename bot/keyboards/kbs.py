@@ -6,7 +6,7 @@ def main_kb() -> InlineKeyboardMarkup:
     kb.button(text="🎮 Начать игру", callback_data='start_game')
     kb.button(text="🎵 Добавить напев", callback_data='add_song')
     kb.button(text="🏆 Таблица лидеров", callback_data='leader_board')
-    kb.button(text="🪪 Профиль", callback_date='profile')
+    kb.button(text="🪪 Профиль", callback_data='profile')
     kb.button(text="❓ Помощь", callback_data='help')
     kb.adjust(1)
     return kb.as_markup()
