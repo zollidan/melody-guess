@@ -10,6 +10,8 @@ rating_router = Router()
 @rating_router.callback_query(F.data == "leader_board")
 async def leader_board(callback: CallbackQuery, session_without_commit: AsyncSession):
     
+        await callback.answer('') 
+    
         leader_board = await UserDAO.find_by_points_desc(session=session_without_commit)
         
         if not leader_board:
